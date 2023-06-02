@@ -1,0 +1,14 @@
+.section{
+    margin-top: 100px;
+}
+
+.card{
+    height: 300px;
+    width: 300px;
+    align-items: center;
+    padding-top: 10px;
+}
+.sec{
+    position: relative;
+    top: -70px;
+}

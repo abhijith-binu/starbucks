@@ -1,0 +1,28 @@
+.hll{
+  width: 280px;
+  height: 40px;
+  border-radius: 30px;
+  
+}
+.hallo{
+    /* padding-right: 210px; */
+    margin-left: 390px;
+}
+
+.hello{
+    margin-left: 30px;
+}
+.hai{
+    padding-left: 110px;
+}
+.hh{
+    padding-left: 30px;
+    font-size: 25px;
+}
+.navbar{
+    position: fixed;
+    width: 100%;
+    position: relative;
+    top: -1px;
+    background-color: aliceblue;
+}

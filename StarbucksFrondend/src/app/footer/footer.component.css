@@ -1,0 +1,25 @@
+.ab{
+    text-decoration: none;
+    font-size: small;
+}
+.sec{
+    padding-left: 120px;
+}
+.abc{
+    padding-left: 580px;
+    font-size: small;
+    text-decoration: none;
+    color: aliceblue;
+}
+.divider{
+    width: 85%;
+    height: 1px;
+    background-color: aliceblue;
+    margin-left: 110px;
+}
+.sectionz{
+    bottom: 0;
+    position: relative;
+}
+
+

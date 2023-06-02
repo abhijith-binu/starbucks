@@ -1,0 +1,114 @@
+<!-- empty cart -->
+<div *ngIf="allproducts.length==0" class="container" style="margin-top: 70px;">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6 text-center mt-5">
+            <h4 class="text-center text-black">Your cart is Empty..!!</h4>
+            <a class="btn btn-success  text-center" routerLink="">Add more</a>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+<!-- cart design -->
+<div  *ngIf="allproducts.length!=0" class="hh1">
+    <div *ngFor="let product of allproducts;let i =index;" class="card" style="width: 28rem;height: 250px;">
+            <div class="card-body d-flex">
+               <img style="width: 100px;height: 100px;border-radius: 50px;" [src]="product.image" alt="">
+                 <h5 class="card-title ps-4 pt-5">{{product.title}}</h5>
+               </div>
+               <!-- <div class="row pb-4 ps-3">
+                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+               </div> -->
+               <div class="row ps-3 pb-4 d-flex">
+                <p class="pss" style="font-weight: 600;">Price: <span class="ps-3">Quantity:</span><span class="ps-4">Total:</span><span class="ps-5">Delete</span></p>
+               </div>
+
+               <div class="row2 d-flex" style="justify-content: space-evenly;font-weight: 600;">
+                   <p>₹{{product.price}}</p>
+                    <p>{{product.quantity}}</p>
+                    <p>{{product.granttotal}}</p>
+                   <button (click)="removeitem(product.id)" style="border: none;width: 50px; height: 30px;" type="submit"><i  class="fa-solid fa-trash text-danger icon"></i></button>
+                   <!-- <button style="border-radius: 2px;height: 30px;background-color: green;color: aliceblue;">Pay</button> -->
+               </div>
+             </div>
+       </div>
+
+       <div class="roww mt-4">
+        <div class="cards d-flex">
+            <h5>Grant Total:<span style="font-weight: 800;padding-left: 10px;font-size: 20px;color: red;">₹{{cartTotalprice}}</span></h5>
+            <button style="margin-left: 30px;margin-bottom: 10px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+               Buy
+              </button>
+        </div>
+       </div>
+
+<!-- checkout modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Check Out Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h6  *ngIf="proceedtopaymentbtnclickedstatus" class="text-success">Payment Details</h6>
+            <form *ngIf="!proceedtopaymentbtnclickedstatus" [formGroup]="addressForm" (ngSubmit)=sumbitBtnClicked()>
+                <div class="mb-3">
+                  <input name="username" formControlName="username" type="email" placeholder="Username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                  <input name="flat" formControlName="flat" type="text" placeholder="Apartment/Flat No." class="form-control" id="exampleInputPassword1" required>
+                </div>
+                <div class="mb-3">
+                    <input name="street" formControlName="" type="text" placeholder="Street Name" class="form-control" id="exampleInputPassword1" required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" placeholder="State" class="form-control" id="exampleInputPassword1">
+                  </div>
+                <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+              </form>
+
+              <!-- delivery address div -->
+              <div  *ngIf="proceedtopaymentbtnclickedstatus" class="m-3">
+                <h6>Delivery Address</h6>
+                <p>{{username}}</p>
+                <p>{{flat}},{{street}}</p>
+                <p>{{state}}</p>
+              </div>
+              
+        </div>
+        <div class="modal-footer">
+            <div class="aa"><h5>Grant Total:<span style="font-weight: 800;padding-left: 10px;font-size: 20px;color: red;">₹{{cartTotalprice}}</span></h5></div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+        <!-- make payment -->
+        <div *ngIf="proceedtopaymentbtnclickedstatus" class="d-flex justify-content-center m-2">
+            <button *ngIf="!showPaypal" (click)="makepayment()" class="btn btn-success">Make Payment</button>
+        </div>
+        
+        <div *ngIf="showPaypal" class="m-5">
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
+
+         <!-- payment success -->
+         <div *ngIf="showSuccess" class="m-2">
+          <p class="text-success">Transaction has been completed successfully.. Your order has been confirmed.</p>
+         </div>
+
+         <!-- payment cancel -->
+         <div *ngIf="showCancel" class="m-2">
+            <p class="text-warning">Transaction has been cancelled!!!.</p>
+           </div>
+         
+           <!-- payment error -->
+           <div *ngIf="showError" class="m-2">
+            <p class="text-success">Transaction has been failed!!!</p>
+           </div>
+  
+
+      </div>
+    </div>
+  </div>
+ 
